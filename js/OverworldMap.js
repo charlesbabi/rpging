@@ -8,6 +8,8 @@ class OverworldMap {
 
     this.upperImage = new Image();
     this.upperImage.src = config.upperSrc;
+
+    this.isCutscenePlaying = false;
   }
 
   drawLowerImage(ctx, cameraPerson) {
@@ -32,9 +34,30 @@ class OverworldMap {
   }
 
   mountObjects() {
-    Object.values(this.gameObjects).forEach((gameObject) => {
-      //determing if the object should be actually mount
+    Object.keys(this.gameObjects).forEach((key) => {
+      let gameObject = this.gameObjects[key];
+      gameObject.id = key;
+
       gameObject.mount(this);
+    });
+  }
+
+  async startCutscene(events) {
+    this.isCutscenePlaying = true;
+
+    for (let i = 0; i < events.length; i++) {
+      const eventHandler = new OverworldEvent({
+        event: events[i],
+        map: this,
+      });
+      await eventHandler.init();
+    }
+
+    this.isCutscenePlaying = false;
+
+    //reset npc to do their normal behavior
+    Object.values(this.gameObjects).forEach((gameObject) => {
+      gameObject.doBehaviorEvent(this);
     });
   }
 
@@ -64,10 +87,30 @@ window.OverworldMaps = {
         image: "./assets/images/characters/people/hero.png",
         isPlayerControlled: true,
       }),
-      npc1: new Person({
-        x: utils.withGrid(6),
+      npca: new Person({
+        x: utils.withGrid(7),
         y: utils.withGrid(9),
         image: "./assets/images/characters/people/npc1.png",
+        behaviorLoop: [
+          { type: "stand", direction: "left", time: 800 },
+          { type: "stand", direction: "up", time: 800 },
+          { type: "stand", direction: "right", time: 300 },
+          { type: "stand", direction: "up", time: 600 },
+        ],
+      }),
+      npcb: new Person({
+        x: utils.withGrid(5),
+        y: utils.withGrid(4),
+        image: "./assets/images/characters/people/npc2.png",
+        behaviorLoop: [
+          { type: "walk", direction: "down" },
+          { type: "walk", direction: "left" },
+          { type: "walk", direction: "up" },
+          { type: "walk", direction: "right" },
+          { type: "stand", direction: "down", time: 1200 },
+          /* { type: "walk", direction: "up", time: 900 },
+          { type: "stand", direction: "down", time: 300 }, */
+        ],
       }),
     },
     walls: {
