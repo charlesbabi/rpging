@@ -1,4 +1,8 @@
 const halfFramePixels = 16;
+
+const selectorGameContainer = ".game-container";
+const selectorCanvasContainer = ".game-canvas";
+
 const utils = {
   withGrid(n) {
     return n * halfFramePixels;

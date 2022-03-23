@@ -1,6 +1,6 @@
 (() => {
   const overworld = new Overworld({
-    element: document.querySelector(".game-container"),
+    element: document.querySelector(selectorGameContainer),
   });
   overworld.init();
 })();
