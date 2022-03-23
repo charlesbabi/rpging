@@ -6,8 +6,10 @@ class OverworldMap {
     this.lowerImage = new Image();
     this.lowerImage.src = config.lowerSrc;
 
-    this.upperImage = new Image();
-    this.upperImage.src = config.upperSrc;
+    if (config.upperSrc) {
+      this.upperImage = new Image();
+      this.upperImage.src = config.upperSrc;
+    }
 
     this.isCutscenePlaying = false;
   }
@@ -21,11 +23,13 @@ class OverworldMap {
   }
 
   drawUpperImage(ctx, cameraPerson) {
-    ctx.drawImage(
-      this.upperImage,
-      utils.withGrid(10.5) - cameraPerson.x,
-      utils.withGrid(6) - cameraPerson.y
-    );
+    if (this.upperImage) {
+      ctx.drawImage(
+        this.upperImage,
+        utils.withGrid(10.5) - cameraPerson.x,
+        utils.withGrid(6) - cameraPerson.y
+      );
+    }
   }
 
   isSpaceTaken(currentX, currentY, direction) {
@@ -108,8 +112,6 @@ window.OverworldMaps = {
           { type: "walk", direction: "up" },
           { type: "walk", direction: "right" },
           { type: "stand", direction: "down", time: 1200 },
-          /* { type: "walk", direction: "up", time: 900 },
-          { type: "stand", direction: "down", time: 300 }, */
         ],
       }),
     },

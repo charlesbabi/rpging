@@ -42,12 +42,12 @@ class OverworldEvent {
 
     const completeHandler = (e) => {
       if (e.detail.whoId === this.event.who) {
-        document.removeEventListener("PersonWalkingComplete", completeHandler);
+        document.removeEventListener("PersonWalkComplete", completeHandler);
         resolve();
       }
     };
 
-    document.addEventListener("PersonWalkingComplete", completeHandler);
+    document.addEventListener("PersonWalkComplete", completeHandler);
   }
 
   init() {

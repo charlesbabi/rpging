@@ -1,0 +1,36 @@
+:root {
+  --border-color: blue;
+  --dialog-background: #ccc;
+
+  --menu-background: #ccc;
+  --menu-border-color: blue;
+  --menu-font-color: red;
+  --menu-selected-background: #ccc;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Open Sans", sans-serif;
+  font-size: 14px;
+  color: #333;
+  background: lightblue;
+  overflow: hidden;
+}
+
+.game-container {
+  width: 352px;
+  height: 198px;
+  position: relative;
+  outline: 1px solid;
+  margin: 0 auto;
+  transform: scale(2) translateY(30%);
+}
+
+.game-container canvas {
+  image-rendering: pixelated;
+}
