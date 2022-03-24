@@ -43,20 +43,32 @@ class Overworld {
 
     step();
   }
+
+  bindActionInput() {
+    new KeyPressListener("Enter", () => {
+      this.map.checkForActionCutscene();
+    });
+  }
+
   init() {
     this.map = new OverworldMap(window.OverworldMaps.DemoRoom);
     this.map.mountObjects();
+
+    this.bindActionInput();
+
     this.directionInput = new DirectionInput();
     this.directionInput.init();
 
     this.startGameLoop();
 
-    this.map.startCutscene([
+    /* this.map.startCutscene([
       { who: "hero", type: "walk", direction: "down" },
       { who: "hero", type: "walk", direction: "down" },
+      { who: "npca", type: "walk", direction: "up" },
       { who: "npca", type: "walk", direction: "left" },
-      { who: "npca", type: "walk", direction: "left" },
-      { who: "npca", type: "stand", direction: "up", time: 1000 },
-    ]);
+      { who: "hero", type: "stand", direction: "right" },
+      { type: "textMessage", text: "What are you doing?" },
+      //{ who: "npca", type: "stand", direction: "up", time: 1000 },
+    ]); */
   }
 }

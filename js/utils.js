@@ -25,6 +25,20 @@ const utils = {
     }
     return { x, y };
   },
+  oppositeDirection(direction) {
+    switch (direction) {
+      case "up":
+        return "down";
+      case "down":
+        return "up";
+      case "left":
+        return "right";
+      case "right":
+        return "left";
+      default:
+        return "";
+    }
+  },
   getCoordinateFormat(x, y) {
     return `${x},${y}`;
   },

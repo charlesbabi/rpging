@@ -65,6 +65,21 @@ class OverworldMap {
     });
   }
 
+  checkForActionCutscene() {
+    //todo: refactor this for be configurable
+    const hero = this.gameObjects["hero"];
+    const nextCooords = utils.nextPosition(hero.x, hero.y, hero.direction);
+    const match = Object.values(this.gameObjects).find((gameObject) => {
+      return (
+        utils.getCoordinateFormat(gameObject.x, gameObject.y) ===
+        utils.getCoordinateFormat(nextCooords.x, nextCooords.y)
+      );
+    });
+    if (!this.isCutscenePlaying && match && match.talking.length > 0) {
+      this.startCutscene(match.talking[0].events);
+    }
+  }
+
   addWall(x, y) {
     this.walls[utils.getCoordinateFormat(x, y)] = true;
   }
@@ -100,6 +115,19 @@ window.OverworldMaps = {
           { type: "stand", direction: "up", time: 800 },
           { type: "stand", direction: "right", time: 300 },
           { type: "stand", direction: "up", time: 600 },
+        ],
+        talking: [
+          {
+            events: [
+              {
+                type: "textMessage",
+                text: "Hello, I'm a talking NPC!",
+                faceHero: "npca",
+              },
+              { type: "textMessage", text: "I'm Busy. Go away!" },
+              //{ who: "hero", type: "walk", direction: "up" },
+            ],
+          },
         ],
       }),
       npcb: new Person({
