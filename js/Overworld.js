@@ -75,14 +75,9 @@ class Overworld {
 
     this.startGameLoop();
 
-    /* this.map.startCutscene([
-      { who: "hero", type: "walk", direction: "down" },
-      { who: "hero", type: "walk", direction: "down" },
-      { who: "npca", type: "walk", direction: "up" },
-      { who: "npca", type: "walk", direction: "left" },
-      { who: "hero", type: "stand", direction: "right" },
-      { type: "textMessage", text: "What are you doing?" },
-      //{ who: "npca", type: "stand", direction: "up", time: 1000 },
+  /*   this.map.startCutscene([
+      { type: "changeMap", map: "DemoRoom" },
+      //{ type: "textMessage", text: "This is the firt message! " },
     ]); */
   }
 }
