@@ -65,6 +65,11 @@ class OverworldEvent {
     message.init(document.querySelector(selectorGameContainer));
   }
 
+  changeMap(resolve) {
+    this.map.overworld.startMap(window.OverworldMaps[this.event.map]);
+    resolve();
+  }
+
   init() {
     return new Promise((resolve) => {
       this[this.event.type](resolve);

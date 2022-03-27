@@ -1,5 +1,6 @@
 class OverworldMap {
   constructor(config) {
+    this.overworld = null;
     this.gameObjects = config.gameObjects;
     this.walls = config.walls || {};
 
@@ -12,6 +13,7 @@ class OverworldMap {
     }
 
     this.isCutscenePlaying = false;
+    this.cutsceneSpaces = config.cutsceneSpaces || {};
   }
 
   drawLowerImage(ctx, cameraPerson) {
@@ -80,6 +82,15 @@ class OverworldMap {
     }
   }
 
+  checkForFootstepCutscene() {
+    const hero = this.gameObjects["hero"];
+    const match =
+      this.cutsceneSpaces[utils.getCoordinateFormat(hero.x, hero.y)];
+    if (!this.isCutscenePlaying && match) {
+      this.startCutscene(match[0].events);
+    }
+  }
+
   addWall(x, y) {
     this.walls[utils.getCoordinateFormat(x, y)] = true;
   }
@@ -131,16 +142,16 @@ window.OverworldMaps = {
         ],
       }),
       npcb: new Person({
-        x: utils.withGrid(5),
-        y: utils.withGrid(4),
+        x: utils.withGrid(8),
+        y: utils.withGrid(5),
         image: "./assets/images/characters/people/npc2.png",
-        behaviorLoop: [
+        /* behaviorLoop: [
           { type: "walk", direction: "down" },
           { type: "walk", direction: "left" },
           { type: "walk", direction: "up" },
           { type: "walk", direction: "right" },
           { type: "stand", direction: "down", time: 1200 },
-        ],
+        ], */
       }),
     },
     walls: {
@@ -150,14 +161,38 @@ window.OverworldMaps = {
       [utils.asGridCoord(7, 7)]: true,
       [utils.asGridCoord(8, 7)]: true,
     },
+    cutsceneSpaces: {
+      [utils.asGridCoord(7, 4)]: [
+        {
+          events: [
+            { who: "npcb", type: "walk", direction: "left" },
+            { who: "npcb", type: "stand", direction: "up", time: 800 },
+            {
+              who: "npcb",
+              type: "textMessage",
+              text: "You can't go there!",
+            },
+            { who: "npcb", type: "walk", direction: "right" },
+            { who: "npcb", type: "stand", direction: "down" },
+            { who: "hero", type: "walk", direction: "down" },
+            { who: "hero", type: "walk", direction: "left" },
+          ],
+        },
+      ],
+      [utils.asGridCoord(5, 10)]: [
+        {
+          events: [{ type: "changeMap", map: "Kitchen" }],
+        },
+      ],
+    },
   },
-  KitchenRoom: {
+  Kitchen: {
     lowerSrc: "./assets/images/maps/KitchenLower.png",
     upperSrc: "./assets/images/maps/KitchenUpper.png",
     gameObjects: {
       hero: new Person({
         x: utils.withGrid(5),
-        y: utils.withGrid(6),
+        y: utils.withGrid(5),
         image: "./assets/images/characters/people/hero.png",
         isPlayerControlled: true,
       }),
