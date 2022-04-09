@@ -65,7 +65,7 @@ class Overworld {
   }
 
   init() {
-    this.startMap(window.OverworldMaps.DemoRoom);
+    this.startMap(window.OverworldMaps.Kitchen);
 
     this.bindActionInput();
     this.bindCharacterPositionCheck("hero");
@@ -75,9 +75,10 @@ class Overworld {
 
     this.startGameLoop();
 
-  /*   this.map.startCutscene([
-      { type: "changeMap", map: "DemoRoom" },
-      //{ type: "textMessage", text: "This is the firt message! " },
-    ]); */
+    this.map.startCutscene([
+      // { type: "battle" }, // remove this line to see how the battle works
+      /* { type: "changeMap", map: "DemoRoom" },
+      { type: "textMessage", text: "Welcome to my World!" }, */
+    ]);
   }
 }
