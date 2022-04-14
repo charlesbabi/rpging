@@ -76,7 +76,7 @@ class Overworld {
     this.startGameLoop();
 
     this.map.startCutscene([
-      // { type: "battle" }, // remove this line to see how the battle works
+      { type: "battle" }, // remove this line to see how the battle works
       /* { type: "changeMap", map: "DemoRoom" },
       { type: "textMessage", text: "Welcome to my World!" }, */
     ]);

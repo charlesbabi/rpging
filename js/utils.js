@@ -39,6 +39,13 @@ const utils = {
         return "";
     }
   },
+  wait(ms){
+    return new Promise(resolve => {
+      setTimeout(() => {
+        resolve();
+      }, ms);
+    })
+  },
   getCoordinateFormat(x, y) {
     return `${x},${y}`;
   },

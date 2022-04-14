@@ -29,6 +29,7 @@ window.Monsters = {
       height: 16,
     },
     icon: "assets/images/icons/chill.png",
+    actions: ["damage1"],
   },
   frog: {
     name: "N-001",
@@ -39,6 +40,7 @@ window.Monsters = {
       height: 16,
     },
     icon: "assets/images/icons/fungi.png",
+    actions: ["damage1"],
   },
   skeleton: {
     name: "N-001",
@@ -49,6 +51,7 @@ window.Monsters = {
       height: 16,
     },
     icon: "assets/images/icons/spicy.png",
+    actions: ["damage1"],
   },
   ghost: {
     name: "N-001",
@@ -59,5 +62,6 @@ window.Monsters = {
       height: 16,
     },
     icon: "assets/images/icons/veggie.png",
+    actions: ["damage1"],
   },
 };
